@@ -8,6 +8,13 @@ import paho.mqtt.publish as publish
 from time import sleep
 import random
 import time
+
+debug = True
+
+if debug:
+    field = "test"
+else:
+    field = "pm25"
     
 def main():
     pm25_center = 5
@@ -28,12 +35,12 @@ def main():
         
         #print (r25, m25, pm25)
         #print (r10, m10, pm10)
-        id = int(time.time()-1543518406)
-        myPayload = '{{"id":{},"pm2.5":{},"pm10":{}}}'.format(id, round(pm25), round(pm10))
+        id = int(time.time()/60-25726416)            # Start date was on 30 nov 2018 14:36
+        myPayload = '{{"id":{},"{}":{},"pm10":{}}}'.format(id, field, round(pm25), round(pm10))
  
         print(myPayload)
         publish.single(topic='iot-2/evt/pm/fmt/json', payload=myPayload, hostname='penwv1.messaging.internetofthings.ibmcloud.com', port=8883, client_id='d:penwv1:air:382b7803d71d',auth={'username':'use-token-auth','password':'2nUIQ2o*F&*9YRYZoa'}, tls={'ca_certs':'/home/gautier/snap/mosquitto/common/orgId.messaging.internetofthings.ibmcloud.com.pem'})    
-        sleep(1)
+        sleep(60)
 
 if __name__ == '__main__':
     main()

@@ -29,7 +29,7 @@ def database():
     mydb = mysql.connector.connect(
       host="localhost",
       user="gautier",
-      passwd=password.mypassword,
+      passwd=password.mypassword,       # Just mypassword='___...' in password.py file 
       database="air"
     )
     mycursor = mydb.cursor()   
