@@ -7,7 +7,6 @@ Created on 28 nov. 2018
 #import paho.mqtt.client as mqtt
 #import paho.mqtt.publish as publish
 import paho.mqtt.subscribe as subscribe
-from time import sleep
 import mysql.connector
 import json
 import password
@@ -88,11 +87,9 @@ def main():
     database()
     subscribe.callback(on_message_print, topics='iot-2/type/air/id/+/evt/pm/fmt/json', 
                        hostname='penwv1.messaging.internetofthings.ibmcloud.com', port=8883, 
-                       client_id='a:penwv1:sk1g7fg5gp',
+                       client_id='a:penwv1:sk1g7fg5gp', qos=2, 
                        auth={'username':'a-penwv1-sk1g7fg5gp','password':'2aDAkUw_kW)NI5CUV-'}, 
                        tls={'ca_certs':'orgId.messaging.internetofthings.ibmcloud.com.pem'})
-    while(True):
-        sleep(1)
 
 if __name__ == '__main__':
     print("mqtt subscribe - version 0.1.0")
