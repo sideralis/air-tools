@@ -12,7 +12,7 @@ import mysql.connector
 import json
 import password
 
-debug = True
+debug = False
 
 mydb = None
 mycursor = None
@@ -77,11 +77,11 @@ def on_message_print(client, userdata, message):
    
     # Update record
     for table in table_name:
-        sql = "UPDATE test SET {}=%s WHERE id=%s".format(mac)
+        sql = "UPDATE {} SET {}=%s WHERE id=%s".format(table, mac)
         val = (data[table], data['id'])
         mycursor.execute(sql, val)
         mydb.commit()
-        print("UPDATE row", data['id'])
+        print("UPDATE row", data['id'], "with value", val)
         
         
 def main():
@@ -95,5 +95,6 @@ def main():
         sleep(1)
 
 if __name__ == '__main__':
+    print("mqtt subscribe - version 0.1.0")
     main()
 
